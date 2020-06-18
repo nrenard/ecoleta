@@ -14,8 +14,6 @@ class PointsController {
 
     const points = await pointsService.index(city, uf, parsedItems);
 
-    console.log('{ city, uf, items }: ', { city, uf, items });
-
     return res.json(points);
   }
 
@@ -36,7 +34,7 @@ class PointsController {
 
     const trx = await knex.transaction();
 
-    const [point_id]: any = await pointsService.create(data, trx);
+    const [point_id]: any = await pointsService.create({ ...data, image: '/sdaw' }, trx);
 
     await pointItemsService.create({ items, point_id }, trx);
 
